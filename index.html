@@ -2,29 +2,15 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Convite | 15 Anos da Manu</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-
 <style>
-  :root{
-    --rosa-claro:   #ffe7ef;
-    --rosa:         #eaa0bf;
-    --rosa-escuro:  #b8557d;
-    --texto:        #5a3b48;
-    --fundo:        #fff7fa;
-    --branco:       #ffffff;
-  }
-
   *{ margin:0; padding:0; box-sizing:border-box; }
 
   html,body{
-    background:var(--fundo);
-    color:var(--texto);
-    font-family:'Cormorant Garamond', serif;
+    background:#000;
+    width:100%;
     overflow-x:hidden;
   }
 
@@ -41,37 +27,36 @@
     pointer-events:none;
   }
   #video-convite{
-    width:100vw;
-    height:100vh;
+    width:100%;
+    height:100dvh;
     object-fit:cover;
     display:block;
   }
   #pular-video{
     position:absolute;
-    bottom:24px;
-    right:24px;
+    bottom:max(20px, env(safe-area-inset-bottom));
+    right:20px;
     color:rgba(255,255,255,.75);
-    font-family:'Cormorant Garamond', serif;
+    font-family:Georgia, serif;
     font-style:italic;
-    font-size:1rem;
-    background:rgba(0,0,0,.25);
+    font-size:.95rem;
+    background:rgba(0,0,0,.3);
     border:1px solid rgba(255,255,255,.4);
     border-radius:30px;
-    padding:8px 18px;
+    padding:8px 16px;
     cursor:pointer;
-    letter-spacing:.03em;
   }
   #ativar-som{
     position:absolute;
-    top:22px;
-    right:22px;
+    top:max(18px, env(safe-area-inset-top));
+    right:18px;
     color:#fff;
     background:rgba(0,0,0,.35);
     border:1px solid rgba(255,255,255,.5);
     border-radius:50%;
-    width:46px;
-    height:46px;
-    font-size:1.25rem;
+    width:44px;
+    height:44px;
+    font-size:1.2rem;
     cursor:pointer;
     display:none;
     align-items:center;
@@ -79,140 +64,23 @@
   }
   #ativar-som.visivel{ display:flex; }
 
-  /* ---------- CONVITE ---------- */
+  /* ---------- IMAGEM FINAL ---------- */
   #convite{
     opacity:0;
-    transition:opacity 1.3s ease;
-    padding:0 0 70px;
+    transition:opacity 1.2s ease;
   }
   #convite.visivel{ opacity:1; }
 
-  .moldura-foto{
-    width:100%;
-    max-height:78vh;
-    overflow:hidden;
-    position:relative;
-  }
-  .moldura-foto img{
-    width:100%;
-    height:78vh;
-    object-fit:cover;
+  #convite img{
     display:block;
-  }
-  .moldura-foto::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(to bottom, rgba(255,247,250,0) 70%, var(--fundo) 100%);
-  }
-
-  .conteudo{
-    max-width:560px;
-    margin:0 auto;
-    padding:0 28px;
-    text-align:center;
-  }
-
-  .titulo-nome{
-    font-family:'Allura', cursive;
-    font-size:clamp(3.4rem, 12vw, 5.2rem);
-    color:var(--rosa-escuro);
-    line-height:1;
-    margin-top:-6vh;
-    position:relative;
-    z-index:2;
-  }
-  .subtitulo{
-    font-style:italic;
-    font-size:1.25rem;
-    color:var(--rosa-escuro);
-    letter-spacing:.04em;
-    margin-top:2px;
-  }
-
-  .borboleta{
-    width:34px;
+    width:100%;
     height:auto;
-    color:var(--rosa);
-    margin:26px auto;
-    display:block;
-  }
-  .borboleta.flutua{ animation:flutuar 4.5s ease-in-out infinite; }
-  @media (prefers-reduced-motion: reduce){
-    .borboleta.flutua{ animation:none; }
-  }
-  @keyframes flutuar{
-    0%,100%{ transform:translateY(0) rotate(-3deg); }
-    50%{ transform:translateY(-6px) rotate(3deg); }
-  }
-
-  .mensagem{
-    font-size:1.18rem;
-    font-style:italic;
-    line-height:1.7;
-    color:var(--texto);
-    margin-bottom:8px;
-  }
-
-  .detalhes{
-    margin-top:34px;
-    display:flex;
-    flex-direction:column;
-    gap:22px;
-  }
-  .item{
-    border-top:1px solid var(--rosa-claro);
-    padding-top:18px;
-  }
-  .item .rotulo{
-    display:block;
-    font-family:'Allura', cursive;
-    font-size:1.7rem;
-    color:var(--rosa-escuro);
-    margin-bottom:4px;
-  }
-  .item .valor{
-    font-size:1.12rem;
-    line-height:1.55;
-  }
-  .item a{
-    color:var(--texto);
-    text-decoration:none;
-    border-bottom:1px solid var(--rosa);
-  }
-  .item a:hover{ color:var(--rosa-escuro); }
-
-  .whatsapp-btn{
-    display:inline-block;
-    margin-top:10px;
-    background:var(--rosa);
-    color:var(--branco);
-    font-family:'Cormorant Garamond', serif;
-    font-style:italic;
-    font-size:1.05rem;
-    text-decoration:none;
-    padding:10px 26px;
-    border-radius:30px;
-    transition:background .25s ease;
-  }
-  .whatsapp-btn:hover{ background:var(--rosa-escuro); }
-
-  footer{
-    margin-top:46px;
-    font-family:'Allura', cursive;
-    font-size:1.6rem;
-    color:var(--rosa-escuro);
-  }
-
-  @media (max-width:480px){
-    .moldura-foto img,.moldura-foto{ height:62vh; }
-    .titulo-nome{ margin-top:-8vh; }
   }
 </style>
 </head>
 <body>
 
-  <!-- ===== INTRO: VÍDEO EM TELA CHEIA ===== -->
+  <!-- ===== INTRO: VÍDEO EM TELA CHEIA, COM SOM ===== -->
   <div id="intro">
     <video id="video-convite" playsinline autoplay>
       <source src="video.mp4" type="video/mp4">
@@ -221,86 +89,17 @@
     <button id="pular-video">pular vídeo ›</button>
   </div>
 
-  <!-- ===== CONVITE ===== -->
+  <!-- ===== IMAGEM DO CONVITE ===== -->
   <main id="convite">
-
-    <div class="moldura-foto">
-      <img src="image.png" alt="Manu">
-    </div>
-
-    <div class="conteudo">
-      <h1 class="titulo-nome">Manu</h1>
-      <p class="subtitulo">15 anos</p>
-
-      <svg class="borboleta flutua" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true">
-        <path d="M58 50 C 40 5, 5 5, 8 35 C 10 55, 35 58, 58 50 Z"/>
-        <path d="M58 52 C 45 70, 15 80, 12 62 C 10 50, 35 48, 58 52 Z"/>
-        <path d="M62 50 C 80 5, 115 5, 112 35 C 110 55, 85 58, 62 50 Z"/>
-        <path d="M62 52 C 75 70, 105 80, 108 62 C 110 50, 85 48, 62 52 Z"/>
-        <line x1="60" y1="40" x2="60" y2="65" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-        <path d="M60 42 C 55 35, 50 30, 48 25" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M60 42 C 65 35, 70 30, 72 25" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
-      </svg>
-
-      <p class="mensagem">Com todo carinho, convido você para celebrar comigo esse dia tão especial.</p>
-
-      <div class="detalhes">
-
-        <div class="item">
-          <span class="rotulo">Data</span>
-          <span class="valor">24 de outubro de 2026, a partir das 18h</span>
-        </div>
-
-        <div class="item">
-          <span class="rotulo">Local</span>
-          <span class="valor">
-            <a href="https://www.google.com/maps/search/?api=1&query=Sociedade+Recreativa+Esportiva+e+Cultural+Novo+Horizonte+Rua+Paschoal+Ap%C3%B3stolo+P%C3%ADtsica+4900+Agron%C3%B4mica+Florian%C3%B3polis" target="_blank" rel="noopener">
-              Sociedade Recreativa Esportiva e Cultural Novo Horizonte<br>
-              Rua Paschoal Apóstolo Pítsica, 4900 – Agronômica<br>
-              Florianópolis – SC, 88025-201
-            </a>
-          </span>
-        </div>
-
-        <div class="item">
-          <span class="rotulo">Recepção</span>
-          <span class="valor">Recepção e fotos com a aniversariante das 18h às 19h</span>
-        </div>
-
-        <div class="item">
-          <span class="rotulo">Traje</span>
-          <span class="valor">Esporte chique / fino — evite as cores rosa e prata</span>
-        </div>
-
-        <div class="item">
-          <span class="rotulo">Sugestão de presentes</span>
-          <span class="valor">
-            Parte de cima: M/G &nbsp;•&nbsp; Parte de baixo: 42<br>
-            Acessórios: prata &nbsp;•&nbsp; Calçado: 38
-          </span>
-        </div>
-
-        <div class="item">
-          <span class="rotulo">Confirme sua presença</span>
-          <span class="valor">
-            <a class="whatsapp-btn" href="https://wa.me/554898410170?text=Ol%C3%A1!%20Confirmo%20minha%20presen%C3%A7a%20na%20festa%20de%2015%20anos%20da%20Manu!%20%F0%9F%A6%8B" target="_blank" rel="noopener">
-              Confirmar no WhatsApp
-            </a>
-          </span>
-        </div>
-
-      </div>
-
-      <footer>até lá! 🦋</footer>
-    </div>
+    <img src="arteSite.jpg" alt="Convite 15 anos">
   </main>
 
 <script>
-  const intro   = document.getElementById('intro');
-  const video   = document.getElementById('video-convite');
-  const convite = document.getElementById('convite');
-  const btnPular  = document.getElementById('pular-video');
-  const btnSom    = document.getElementById('ativar-som');
+  const intro    = document.getElementById('intro');
+  const video    = document.getElementById('video-convite');
+  const convite  = document.getElementById('convite');
+  const btnPular = document.getElementById('pular-video');
+  const btnSom   = document.getElementById('ativar-som');
 
   function mostrarConvite(){
     intro.classList.add('oculto');
@@ -308,8 +107,9 @@
     setTimeout(() => intro.remove(), 1200);
   }
 
-  // Tenta reproduzir com som; se o navegador bloquear, reproduz mudo
-  // e mostra o botão para o convidado ativar o som manualmente.
+  // Tenta tocar com som ligado. Só se o navegador bloquear
+  // (alguns exigem interação antes de permitir som), toca mudo
+  // e mostra o botão para o convidado ativar manualmente.
   video.play().catch(() => {
     video.muted = true;
     btnSom.classList.add('visivel');
@@ -323,8 +123,6 @@
 
   video.addEventListener('ended', mostrarConvite);
   btnPular.addEventListener('click', mostrarConvite);
-
-  // Se o vídeo não existir ou falhar, segue direto para o convite.
   video.addEventListener('error', mostrarConvite);
 </script>
 
