@@ -90,6 +90,7 @@
 
   /* ---------- IMAGEM FINAL ---------- */
   #convite{
+    position:relative;
     opacity:0;
     transition:opacity 1.2s ease;
   }
@@ -99,6 +100,24 @@
     display:block;
     width:100%;
     height:auto;
+  }
+
+  /* Áreas clicáveis sobre a imagem (localização e confirmação) */
+  #convite a.area-clicavel{
+    position:absolute;
+    display:block;
+  }
+  #area-localizacao{
+    top:46.6%;
+    height:9%;
+  }
+  #area-confirmacao{
+    top:58.3%;
+    height:8.8%;
+  }
+  #convite a.area-clicavel{
+    left:4.4%;
+    width:91.2%;
   }
 </style>
 </head>
@@ -124,6 +143,14 @@
   <!-- ===== IMAGEM DO CONVITE ===== -->
   <main id="convite">
     <img src="arteSite.jpg" alt="Convite 15 anos">
+    <a class="area-clicavel" id="area-localizacao"
+       href="https://maps.app.goo.gl/rCinyTKf5V7VvfXc7"
+       target="_blank" rel="noopener"
+       aria-label="Ver localização no mapa"></a>
+    <a class="area-clicavel" id="area-confirmacao"
+       href="https://wa.me/5548984410170"
+       target="_blank" rel="noopener"
+       aria-label="Confirmar presença pelo WhatsApp"></a>
   </main>
 
 <script>
