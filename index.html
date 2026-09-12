@@ -46,23 +46,39 @@
     padding:8px 16px;
     cursor:pointer;
   }
-  #ativar-som{
-    position:absolute;
-    top:max(18px, env(safe-area-inset-top));
-    right:18px;
-    color:#fff;
-    background:rgba(0,0,0,.35);
-    border:1px solid rgba(255,255,255,.5);
-    border-radius:50%;
-    width:44px;
-    height:44px;
-    font-size:1.2rem;
-    cursor:pointer;
-    display:none;
+  /* ---------- TELA DE TOQUE INICIAL ---------- */
+  #toque-inicial{
+    position:fixed;
+    inset:0;
+    background:#000;
+    z-index:200;
+    display:flex;
     align-items:center;
     justify-content:center;
+    cursor:pointer;
+    transition:opacity .6s ease;
   }
-  #ativar-som.visivel{ display:flex; }
+  #toque-inicial.oculto{
+    opacity:0;
+    pointer-events:none;
+  }
+  #toque-inicial p{
+    color:#fff;
+    font-family:Georgia, serif;
+    font-style:italic;
+    font-size:1.15rem;
+    letter-spacing:.03em;
+    text-align:center;
+    padding:0 30px;
+    animation:pulsar 2s ease-in-out infinite;
+  }
+  @keyframes pulsar{
+    0%,100%{ opacity:.55; }
+    50%{ opacity:1; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    #toque-inicial p{ animation:none; }
+  }
 
   /* ---------- IMAGEM FINAL ---------- */
   #convite{
@@ -80,12 +96,16 @@
 </head>
 <body>
 
+  <!-- ===== TOQUE INICIAL (necessário para liberar som no celular) ===== -->
+  <div id="toque-inicial">
+    <p>toque para abrir<br>o convite</p>
+  </div>
+
   <!-- ===== INTRO: VÍDEO EM TELA CHEIA, COM SOM ===== -->
   <div id="intro">
-    <video id="video-convite" playsinline autoplay>
+    <video id="video-convite" playsinline preload="auto">
       <source src="video.mp4" type="video/mp4">
     </video>
-    <button id="ativar-som" title="Ativar som">🔇</button>
     <button id="pular-video">pular vídeo ›</button>
   </div>
 
@@ -98,12 +118,12 @@
   </main>
 
 <script>
+  const toque    = document.getElementById('toque-inicial');
   const intro    = document.getElementById('intro');
   const video    = document.getElementById('video-convite');
   const musica   = document.getElementById('musica-fundo');
   const convite  = document.getElementById('convite');
   const btnPular = document.getElementById('pular-video');
-  const btnSom   = document.getElementById('ativar-som');
 
   function mostrarConvite(){
     intro.classList.add('oculto');
@@ -111,22 +131,14 @@
     setTimeout(() => intro.remove(), 1200);
   }
 
-  // Tenta tocar vídeo e música com som ligado. Só se o navegador
-  // bloquear (alguns exigem interação antes de permitir som),
-  // toca tudo mudo e mostra o botão para o convidado ativar manualmente.
-  Promise.all([video.play(), musica.play()]).catch(() => {
-    video.muted = true;
-    musica.muted = true;
-    btnSom.classList.add('visivel');
+  // O toque é um gesto direto do usuário: a partir dele, todo
+  // navegador (incluindo Chrome no Android) libera áudio com som.
+  toque.addEventListener('click', () => {
+    toque.classList.add('oculto');
+    setTimeout(() => toque.remove(), 700);
     video.play();
     musica.play();
-  });
-
-  btnSom.addEventListener('click', () => {
-    video.muted = false;
-    musica.muted = false;
-    btnSom.classList.remove('visivel');
-  });
+  }, { once:true });
 
   video.addEventListener('ended', mostrarConvite);
   btnPular.addEventListener('click', mostrarConvite);
