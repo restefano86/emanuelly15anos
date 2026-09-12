@@ -89,9 +89,6 @@
     <button id="pular-video">pular vídeo ›</button>
   </div>
 
-  <!-- ===== MÚSICA DE FUNDO, EM LOOP ===== -->
-  <audio id="musica-fundo" src="musica_final.mp3" loop preload="auto"></audio>
-
   <!-- ===== IMAGEM DO CONVITE ===== -->
   <main id="convite">
     <img src="arteSite.jpg" alt="Convite 15 anos">
@@ -100,7 +97,6 @@
 <script>
   const intro    = document.getElementById('intro');
   const video    = document.getElementById('video-convite');
-  const musica   = document.getElementById('musica-fundo');
   const convite  = document.getElementById('convite');
   const btnPular = document.getElementById('pular-video');
   const btnSom   = document.getElementById('ativar-som');
@@ -111,20 +107,17 @@
     setTimeout(() => intro.remove(), 1200);
   }
 
-  // Tenta tocar vídeo e música com som ligado. Só se o navegador
-  // bloquear (alguns exigem interação antes de permitir som),
-  // toca tudo mudo e mostra o botão para o convidado ativar manualmente.
-  Promise.all([video.play(), musica.play()]).catch(() => {
+  // Tenta tocar com som ligado. Só se o navegador bloquear
+  // (alguns exigem interação antes de permitir som), toca mudo
+  // e mostra o botão para o convidado ativar manualmente.
+  video.play().catch(() => {
     video.muted = true;
-    musica.muted = true;
     btnSom.classList.add('visivel');
     video.play();
-    musica.play();
   });
 
   btnSom.addEventListener('click', () => {
     video.muted = false;
-    musica.muted = false;
     btnSom.classList.remove('visivel');
   });
 
